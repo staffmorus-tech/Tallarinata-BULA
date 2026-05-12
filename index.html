@@ -29,6 +29,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);
 .card-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
 .card-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
+.approx-note{background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--muted);margin-bottom:1.25rem;line-height:1.5}
+.approx-note strong{color:var(--dark)}
+
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:480px){.row2{grid-template-columns:1fr}}
 .field{margin-bottom:1rem}
@@ -42,6 +45,7 @@ input:focus{border-color:var(--gold)}
 .ticket:last-of-type{border-bottom:none;padding-bottom:0}
 .t-name{font-size:15px;font-weight:600}
 .t-desc{font-size:13px;color:var(--muted);margin-top:2px}
+.t-sauces{font-size:12px;color:var(--gold);margin-top:3px;font-style:italic}
 .t-price{font-size:12px;font-weight:600;color:var(--gold);margin-top:4px}
 .qty{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .q-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border);background:var(--cream);color:var(--dark);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,color .15s}
@@ -90,7 +94,7 @@ input:focus{border-color:var(--gold)}
   <h1>Tallarinata<br><span>Scout 2025</span></h1>
   <p>Una tarde de pasta, comunidad y espíritu scout.<br>Ven a disfrutar con toda la familia.</p>
   <div class="meta">
-    <span>📅 Viernes 30 de mayo, 2026</span>
+    <span>📅 Viernes 30 de mayo, 2025</span>
     <span>🕐 12:00 – 18:00 hrs</span>
     <span>📍 DS Sankt Thomas Morus, Providencia</span>
   </div>
@@ -112,16 +116,33 @@ input:focus{border-color:var(--gold)}
 
   <div class="card">
     <div class="card-title">Elige tus entradas · $5.000 c/u</div>
+    <div class="approx-note">
+      💡 <strong>Tu elección no es vinculante</strong> — puedes cambiar el tipo de entrada el mismo día del evento. Esto es solo para ayudarnos a calcular un aproximado.
+    </div>
     <div class="ticket">
-      <div><div class="t-name">Fideos tradicionales + bebida</div><div class="t-desc">Tallarín con salsa y bebida incluida</div><div class="t-price">$5.000</div></div>
+      <div>
+        <div class="t-name">Fideos tradicionales + bebida</div>
+        <div class="t-desc">Tallarín con bebida incluida</div>
+        <div class="t-sauces">Salsas disponibles: pomodoro o alfredo</div>
+        <div class="t-price">$5.000</div>
+      </div>
       <div class="qty"><button class="q-btn" onclick="ch('trad',-1)">−</button><span class="q-val" id="q-trad">0</span><button class="q-btn" onclick="ch('trad',1)">+</button></div>
     </div>
     <div class="ticket">
-      <div><div class="t-name">Fideos premium</div><div class="t-desc">Tallarín con salsa premium</div><div class="t-price">$5.000</div></div>
+      <div>
+        <div class="t-name">Fideos premium</div>
+        <div class="t-desc">Tallarín con salsa premium</div>
+        <div class="t-sauces">Salsas disponibles: pesto o bolognesa</div>
+        <div class="t-price">$5.000</div>
+      </div>
       <div class="qty"><button class="q-btn" onclick="ch('prem',-1)">−</button><span class="q-val" id="q-prem">0</span><button class="q-btn" onclick="ch('prem',1)">+</button></div>
     </div>
     <div class="ticket">
-      <div><div class="t-name">Torta y café</div><div class="t-desc">Postre con café o té</div><div class="t-price">$5.000</div></div>
+      <div>
+        <div class="t-name">Torta y café</div>
+        <div class="t-desc">Postre con café o té</div>
+        <div class="t-price">$5.000</div>
+      </div>
       <div class="qty"><button class="q-btn" onclick="ch('cafe',-1)">−</button><span class="q-val" id="q-cafe">0</span><button class="q-btn" onclick="ch('cafe',1)">+</button></div>
     </div>
     <div class="total-bar">
