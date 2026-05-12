@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tallarinata Scout — Grupo Thomas Morus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#F7F3EC; --dark:#1C1A16; --red:#B5341A; --red-bg:#F2E8E4;
+  --gold:#C4922A; --muted:#6B6457; --border:#E0D9CF;
+  --green:#2D6A4F; --green-bg:#D8F3DC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);padding-bottom:4rem}
+
+.hero{background:var(--dark);color:var(--cream);padding:3rem 1.5rem 2.5rem;text-align:center}
+.badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(196,146,42,.4);border-radius:100px;padding:4px 14px;margin-bottom:1rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin-bottom:.75rem}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:15px;color:rgba(247,243,236,.65);margin-bottom:1.75rem;line-height:1.6}
+.meta{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;font-size:14px;font-weight:500}
+.meta span{display:flex;align-items:center;gap:6px}
+
+.container{max-width:640px;margin:2rem auto;padding:0 1rem}
+
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1rem}
+.card-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.card-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.row2{grid-template-columns:1fr}}
+.field{margin-bottom:1rem}
+.field:last-child{margin-bottom:0}
+label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:6px}
+input{width:100%;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:15px;border:1.5px solid var(--border);border-radius:10px;background:var(--cream);color:var(--dark);outline:none;transition:border-color .2s}
+input:focus{border-color:var(--gold)}
+
+.ticket{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+.ticket:first-of-type{padding-top:0}
+.ticket:last-of-type{border-bottom:none;padding-bottom:0}
+.t-name{font-size:15px;font-weight:600}
+.t-desc{font-size:13px;color:var(--muted);margin-top:2px}
+.t-price{font-size:12px;font-weight:600;color:var(--gold);margin-top:4px}
+.qty{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.q-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border);background:var(--cream);color:var(--dark);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,color .15s}
+.q-btn:hover{border-color:var(--gold);color:var(--gold)}
+.q-val{font-size:17px;font-weight:600;min-width:22px;text-align:center}
+
+.total-bar{background:var(--dark);color:var(--cream);border-radius:12px;padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem}
+.total-bar .lbl{font-size:13px;color:rgba(247,243,236,.6)}
+.total-bar .sub{font-size:12px;color:rgba(247,243,236,.45);margin-top:2px}
+.total-bar .amt{font-family:'Playfair Display',serif;font-size:24px;font-weight:700}
+
+.t-row{display:flex;align-items:baseline;gap:8px;font-size:14px;padding:6px 0;border-bottom:1px solid var(--border)}
+.t-row:last-child{border-bottom:none}
+.t-lbl{color:var(--muted);font-size:13px;min-width:110px;flex-shrink:0}
+.t-val{font-weight:600;word-break:break-all}
+.copy-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--muted);background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:3px 10px;cursor:pointer;transition:all .15s}
+.copy-btn:hover{border-color:var(--gold);color:var(--gold)}
+.t-note{background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:var(--red);margin-top:1rem;line-height:1.5}
+
+.upload{border:2px dashed var(--border);border-radius:12px;padding:2rem 1rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--cream)}
+.upload:hover{border-color:var(--gold);background:#FBF7EF}
+.upload.done{border-style:solid;border-color:var(--green);background:var(--green-bg)}
+.upload p{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5}
+.upload p strong{color:var(--dark)}
+#fileName{font-size:13px;font-weight:600;color:var(--green);margin-top:8px}
+#fileInput{display:none}
+
+.error{background:var(--red-bg);color:var(--red);border-radius:8px;padding:10px 14px;font-size:13px;font-weight:500;margin-bottom:8px;display:none}
+.submit{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;margin-top:1rem;transition:opacity .2s}
+.submit:hover{opacity:.9}
+.submit:disabled{opacity:.4;cursor:not-allowed}
+
+.success{display:none;background:var(--green-bg);border:1px solid #95D5B2;border-radius:16px;padding:2rem;text-align:center;margin-top:1rem}
+.success h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--green);margin:.5rem 0}
+.success p{font-size:14px;color:#1B4332;line-height:1.6}
+
+.hidden{display:none!important}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">Grupo Scout Thomas Morus</div>
+  <h1>Tallarinata<br><span>Scout 2025</span></h1>
+  <p>Una tarde de pasta, comunidad y espíritu scout.<br>Ven a disfrutar con toda la familia.</p>
+  <div class="meta">
+    <span>📅 Viernes 30 de mayo, 2025</span>
+    <span>🕐 12:00 – 18:00 hrs</span>
+    <span>📍 Santiago, Chile</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <div class="card-title">Tus datos</div>
+    <div class="row2">
+      <div class="field"><label>Nombre</label><input id="nombre" placeholder="Tu nombre"></div>
+      <div class="field"><label>Apellido</label><input id="apellido" placeholder="Tu apellido"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Correo electrónico</label><input id="email" type="email" placeholder="correo@ejemplo.cl"></div>
+      <div class="field"><label>Teléfono / WhatsApp</label><input id="telefono" type="tel" placeholder="+56 9 XXXX XXXX"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Elige tus entradas · $5.000 c/u</div>
+    <div class="ticket">
+      <div><div class="t-name">Fideos tradicionales + bebida</div><div class="t-desc">Tallarín con salsa y bebida incluida</div><div class="t-price">$5.000</div></div>
+      <div class="qty"><button class="q-btn" onclick="ch('trad',-1)">−</button><span class="q-val" id="q-trad">0</span><button class="q-btn" onclick="ch('trad',1)">+</button></div>
+    </div>
+    <div class="ticket">
+      <div><div class="t-name">Fideos premium</div><div class="t-desc">Tallarín con salsa premium</div><div class="t-price">$5.000</div></div>
+      <div class="qty"><button class="q-btn" onclick="ch('prem',-1)">−</button><span class="q-val" id="q-prem">0</span><button class="q-btn" onclick="ch('prem',1)">+</button></div>
+    </div>
+    <div class="ticket">
+      <div><div class="t-name">Torta y café</div><div class="t-desc">Postre con café o té</div><div class="t-price">$5.000</div></div>
+      <div class="qty"><button class="q-btn" onclick="ch('cafe',-1)">−</button><span class="q-val" id="q-cafe">0</span><button class="q-btn" onclick="ch('cafe',1)">+</button></div>
+    </div>
+    <div class="total-bar">
+      <div><div class="lbl">Total a transferir</div><div class="sub" id="breakdown">&nbsp;</div></div>
+      <div class="amt" id="total">$0</div>
+    </div>
+  </div>
+
+  <div class="card hidden" id="sec-transfer">
+    <div class="card-title">Datos de transferencia</div>
+    <div class="t-row"><span class="t-lbl">Titular</span><span class="t-val">Amelia Barceló Clericus</span></div>
+    <div class="t-row"><span class="t-lbl">RUT</span><span class="t-val">21.352.822-K</span></div>
+    <div class="t-row"><span class="t-lbl">Banco</span><span class="t-val">Mercado Pago</span></div>
+    <div class="t-row"><span class="t-lbl">Tipo de cuenta</span><span class="t-val">Cuenta Vista</span></div>
+    <div class="t-row"><span class="t-lbl">N° de cuenta</span><span class="t-val">1085139191 <button class="copy-btn" id="copyBtn" onclick="copyNum()">Copiar</button></span></div>
+    <div class="t-row"><span class="t-lbl">Correo</span><span class="t-val">staffmorus@gmail.com</span></div>
+    <div class="t-note">⚠️ Incluye tu nombre completo en el mensaje de la transferencia para que podamos identificarte.</div>
+  </div>
+
+  <div class="card hidden" id="sec-comprobante">
+    <div class="card-title">Comprobante de pago</div>
+    <div class="upload" id="uploadArea" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)" role="button" tabindex="0">
+      <div style="font-size:32px">📎</div>
+      <p><strong>Haz clic para subir tu comprobante</strong><br>o arrastra el archivo aquí<br><span style="font-size:12px">JPG, PNG o PDF — máx. 10 MB</span></p>
+      <div id="fileName"></div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*,.pdf" onchange="handleFile(event)">
+  </div>
+
+  <div class="error" id="formError"></div>
+  <button class="submit" id="submitBtn" onclick="submitForm()">Reservar mis entradas →</button>
+
+  <div class="success" id="successBox">
+    <div style="font-size:48px">✅</div>
+    <h2>¡Reserva recibida!</h2>
+    <p id="successMsg"></p>
+  </div>
+
+</div>
+
+<script>
+const qty = {trad:0, prem:0, cafe:0};
+const PRICE = 5000;
+const NAMES = {trad:'Fideos tradicionales', prem:'Fideos premium', cafe:'Torta y café'};
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYL7eqY3xTPyRq5jvNFkE1lb8gIoqr4Wn-m3f-Qlkzg5tFIE_VNyJq8NjtUnBPuKQ/exec';
+
+function ch(t, d) {
+  qty[t] = Math.max(0, qty[t] + d);
+  document.getElementById('q-' + t).textContent = qty[t];
+  const total = (qty.trad + qty.prem + qty.cafe) * PRICE;
+  document.getElementById('total').textContent = '$' + total.toLocaleString('es-CL');
+  const parts = Object.entries(qty).filter(([,v]) => v > 0).map(([k,v]) => v + ' ' + NAMES[k]);
+  document.getElementById('breakdown').textContent = parts.join(' · ') || '\u00a0';
+  const show = total > 0;
+  document.getElementById('sec-transfer').classList.toggle('hidden', !show);
+  document.getElementById('sec-comprobante').classList.toggle('hidden', !show);
+}
+
+function copyNum() {
+  navigator.clipboard.writeText('1085139191').then(() => {
+    const b = document.getElementById('copyBtn');
+    b.textContent = '¡Copiado!';
+    b.style.color = 'var(--green)';
+    setTimeout(() => { b.textContent = 'Copiar'; b.style.color = ''; }, 2000);
+  });
+}
+
+function handleFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  document.getElementById('uploadArea').classList.add('done');
+  document.getElementById('fileName').textContent = '✓ ' + file.name;
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  const dt = new DataTransfer();
+  dt.items.add(e.dataTransfer.files[0]);
+  document.getElementById('fileInput').files = dt.files;
+  handleFile({target: {files: e.dataTransfer.files}});
+}
+
+async function submitForm() {
+  const err = document.getElementById('formError');
+  const get = id => document.getElementById(id).value.trim();
+  if (!get('nombre') || !get('apellido') || !get('email') || !get('telefono')) {
+    err.textContent = 'Por favor completa todos tus datos de contacto.';
+    err.style.display = 'block'; return;
+  }
+  if (qty.trad + qty.prem + qty.cafe === 0) {
+    err.textContent = 'Selecciona al menos una entrada.';
+    err.style.display = 'block'; return;
+  }
+  err.style.display = 'none';
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span>Enviando...';
+
+  const total = (qty.trad + qty.prem + qty.cafe) * PRICE;
+  const payload = {
+    nombre: get('nombre'), apellido: get('apellido'),
+    email: get('email'), telefono: get('telefono'),
+    trad: qty.trad, prem: qty.prem, cafe: qty.cafe,
+    total, fecha: new Date().toLocaleString('es-CL')
+  };
+
+  const fi = document.getElementById('fileInput');
+  if (fi.files[0]) {
+    payload.fileName = fi.files[0].name;
+    payload.fileType = fi.files[0].type;
+    payload.fileData = await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result.split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(fi.files[0]);
+    });
+  }
+
+  try { await fetch(SCRIPT_URL, {method:'POST', body: JSON.stringify(payload)}); } catch(_) {}
+
+  btn.style.display = 'none';
+  document.getElementById('successBox').style.display = 'block';
+  const parts = Object.entries(qty).filter(([,v]) => v > 0).map(([k,v]) => v + ' ' + NAMES[k].toLowerCase());
+  document.getElementById('successMsg').textContent =
+    'Recibimos tu reserva de ' + parts.join(', ') +
+    ' ($' + total.toLocaleString('es-CL') + '). Nos pondremos en contacto pronto para confirmar.';
+}
+</script>
+</body>
+</html>
